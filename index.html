@@ -1,63 +1,92 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <title>สหกรณ์การเกษตร | ระบบสั่งซื้อสำหรับสมาชิก</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>สหกรณ์การเกษตร | ระบบสมาชิก</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {font-family: Arial, sans-serif; margin:0; background:#f4f6f5;}
     header {background:#2e7d32; color:#fff; padding:1rem;}
-    nav a {color:#fff; margin-right:1rem; text-decoration:none;}
+    nav a {color:#fff; margin-right:1rem; text-decoration:none; cursor:pointer;}
     .container {padding:1.5rem;}
-    .card {background:#fff; border-radius:8px; padding:1rem; margin-bottom:1rem; box-shadow:0 2px 6px rgba(0,0,0,0.1);}    
+    .card {background:#fff; border-radius:8px; padding:1rem; margin-bottom:1rem;}
     .products {display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem;}
-    button {background:#2e7d32; color:#fff; border:none; padding:0.5rem 1rem; border-radius:4px; cursor:pointer;}
-    footer {text-align:center; padding:1rem; font-size:0.9rem; color:#555;}
+    button {background:#2e7d32; color:#fff; border:none; padding:0.5rem 1rem; border-radius:4px;}
+    input {width:100%; padding:8px; margin-bottom:10px;}
   </style>
 </head>
 <body>
-  <header>
-    <h1>🌾 สหกรณ์การเกษตร</h1>
-    <nav>
-      <a href="#">หน้าแรก</a>
-      <a href="#">สินค้า</a>
-      <a href="#">เข้าสู่ระบบสมาชิก</a>
-      <a href="#">ติดต่อสหกรณ์</a>
-    </nav>
-  </header>
 
-  <div class="container">
+<header>
+  <h1>🌾 สหกรณ์การเกษตร</h1>
+  <nav>
+    <a onclick="showHome()">หน้าแรก</a>
+    <a onclick="showLogin()">เข้าสู่ระบบสมาชิก</a>
+  </nav>
+</header>
+
+<div class="container">
+
+  <div class="card" id="loginBox" style="display:none; max-width:400px; margin:auto;">
+    <h2>เข้าสู่ระบบสมาชิก</h2>
+    <input id="memberId" placeholder="เลขสมาชิก">
+    <button onclick="login()">เข้าสู่ระบบ</button>
+  </div>
+
+  <div id="homeBox">
     <div class="card">
       <h2>ยินดีต้อนรับสมาชิกสหกรณ์</h2>
-      <p>ระบบสั่งซื้อสินค้าเกษตร ปุ๋ย เมล็ดพันธุ์ และอุปกรณ์
-         สำหรับสมาชิกโดยเฉพาะ</p>
+      <p>ระบบสั่งซื้อสินค้า สำหรับสมาชิกเท่านั้น</p>
     </div>
 
-    <h2>🛒 สินค้าแนะนำ</h2>
+    <h2>🛒 สินค้า</h2>
     <div class="products">
       <div class="card">
         <h3>ปุ๋ยอินทรีย์</h3>
-        <p>ขนาด 50 กก.</p>
-        <p><strong>ราคาเฉพาะสมาชิก</strong></p>
-        <button>สั่งซื้อ</button>
+        <button onclick="order()">สั่งซื้อ</button>
       </div>
       <div class="card">
         <h3>เมล็ดพันธุ์ข้าว</h3>
-        <p>พันธุ์ กข43</p>
-        <p><strong>ราคาเฉพาะสมาชิก</strong></p>
-        <button>สั่งซื้อ</button>
-      </div>
-      <div class="card">
-        <h3>ยาป้องกันศัตรูพืช</h3>
-        <p>สูตรปลอดภัย</p>
-        <p><strong>ราคาเฉพาะสมาชิก</strong></p>
-        <button>สั่งซื้อ</button>
+        <button onclick="order()">สั่งซื้อ</button>
       </div>
     </div>
   </div>
 
-  <footer>
-    © 2026 สหกรณ์การเกษตร | เพื่อสมาชิก โดยสมาชิก
-  </footer>
+</div>
+
+<script>
+let loggedIn = false;
+
+function showLogin(){
+  document.getElementById('loginBox').style.display='block';
+  document.getElementById('homeBox').style.display='none';
+}
+
+function showHome(){
+  document.getElementById('loginBox').style.display='none';
+  document.getElementById('homeBox').style.display='block';
+}
+
+function login(){
+  const id = document.getElementById('memberId').value;
+  if(id){
+    loggedIn = true;
+    alert('เข้าสู่ระบบสำเร็จ สมาชิกเลขที่ ' + id);
+    showHome();
+  } else {
+    alert('กรุณากรอกเลขสมาชิก');
+  }
+}
+
+function order(){
+  if(!loggedIn){
+    alert('กรุณาเข้าสู่ระบบสมาชิกก่อน');
+    showLogin();
+  } else {
+    alert('สั่งซื้อสำเร็จ (ตัวอย่าง)');
+  }
+}
+</script>
+
 </body>
 </html>
