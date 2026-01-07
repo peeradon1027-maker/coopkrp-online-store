@@ -1,92 +1,122 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <title>สหกรณ์การเกษตร | ระบบสมาชิก</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>สหกรณ์การเกษตร | ระบบสั่งซื้อสำหรับสมาชิก</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {font-family: Arial, sans-serif; margin:0; background:#f4f6f5;}
     header {background:#2e7d32; color:#fff; padding:1rem;}
-    nav a {color:#fff; margin-right:1rem; text-decoration:none; cursor:pointer;}
+    nav a {color:#fff; margin-right:1rem; text-decoration:none;}
     .container {padding:1.5rem;}
-    .card {background:#fff; border-radius:8px; padding:1rem; margin-bottom:1rem;}
+    .card {background:#fff; border-radius:8px; padding:1rem; margin-bottom:1rem; box-shadow:0 2px 6px rgba(0,0,0,0.1);}    
     .products {display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem;}
-    button {background:#2e7d32; color:#fff; border:none; padding:0.5rem 1rem; border-radius:4px;}
-    input {width:100%; padding:8px; margin-bottom:10px;}
+    button {background:#2e7d32; color:#fff; border:none; padding:0.5rem 1rem; border-radius:4px; cursor:pointer;}
+    footer {text-align:center; padding:1rem; font-size:0.9rem; color:#555;}
   </style>
 </head>
 <body>
-
-<header>
+  <header>
   <h1>🌾 สหกรณ์การเกษตร</h1>
+  <div id="memberBar" style="margin-bottom:8px; display:none;">
+    👤 สมาชิกเลขที่ <span id="memberName"></span>
+    <button onclick="logout()" style="margin-left:10px; background:#fff; color:#2e7d32;">ออกจากระบบ</button>
+  </div>
   <nav>
     <a onclick="showHome()">หน้าแรก</a>
     <a onclick="showLogin()">เข้าสู่ระบบสมาชิก</a>
   </nav>
 </header>
 
-<div class="container">
-
-  <div class="card" id="loginBox" style="display:none; max-width:400px; margin:auto;">
-    <h2>เข้าสู่ระบบสมาชิก</h2>
-    <input id="memberId" placeholder="เลขสมาชิก">
-    <button onclick="login()">เข้าสู่ระบบ</button>
-  </div>
-
-  <div id="homeBox">
-    <div class="card">
-      <h2>ยินดีต้อนรับสมาชิกสหกรณ์</h2>
-      <p>ระบบสั่งซื้อสินค้า สำหรับสมาชิกเท่านั้น</p>
+  <div class="container">
+    <div class="card" id="loginBox" style="display:none; max-width:400px; margin:auto;">
+      <h2>เข้าสู่ระบบสมาชิก</h2>
+      <p>กรุณากรอกเลขสมาชิก</p>
+      <input id="memberId" placeholder="เลขสมาชิก" style="width:100%; padding:8px; margin-bottom:10px;" />
+      <button onclick="login()">เข้าสู่ระบบ</button>
     </div>
 
-    <h2>🛒 สินค้า</h2>
+    <div id="homeBox">
+    <div class="card">
+      <h2>ยินดีต้อนรับสมาชิกสหกรณ์</h2>
+      <p>ระบบสั่งซื้อสินค้าเกษตร ปุ๋ย เมล็ดพันธุ์ และอุปกรณ์
+         สำหรับสมาชิกโดยเฉพาะ</p>
+    </div>
+
+    <h2>🛒 สินค้าแนะนำ</h2>
     <div class="products">
       <div class="card">
         <h3>ปุ๋ยอินทรีย์</h3>
-        <button onclick="order()">สั่งซื้อ</button>
+        <p>ขนาด 50 กก.</p>
+        <p><strong>ราคาเฉพาะสมาชิก</strong></p>
+        <button onclick="order('สินค้า')">สั่งซื้อ</button>
       </div>
       <div class="card">
         <h3>เมล็ดพันธุ์ข้าว</h3>
-        <button onclick="order()">สั่งซื้อ</button>
+        <p>พันธุ์ กข43</p>
+        <p><strong>ราคาเฉพาะสมาชิก</strong></p>
+        <button onclick="order('สินค้า')">สั่งซื้อ</button>
+      </div>
+      <div class="card">
+        <h3>ยาป้องกันศัตรูพืช</h3>
+        <p>สูตรปลอดภัย</p>
+        <p><strong>ราคาเฉพาะสมาชิก</strong></p>
+        <button onclick="order('สินค้า')">สั่งซื้อ</button>
       </div>
     </div>
   </div>
 
-</div>
-
+  <footer>
+    © 2026 สหกรณ์การเกษตร | เพื่อสมาชิก โดยสมาชิก
+  <script>
+function order(product){
+  alert('กำลังพาไปสั่งซื้อทาง LINE สหกรณ์');
+  window.open('https://line.me/R/ti/p/@YOUR_LINE_ID','_blank');
+}
+function logout(){
+  loggedIn = false;
+  currentMember = '';
+  document.getElementById('memberBar').style.display='none';
+  alert('ออกจากระบบเรียบร้อย');
+  showHome();
+}
+</script>
 <script>
 let loggedIn = false;
-
+let currentMember = '';
 function showLogin(){
   document.getElementById('loginBox').style.display='block';
-  document.getElementById('homeBox').style.display='none';
+  document.getElementById('homeBox').style.display='block';
 }
-
 function showHome(){
   document.getElementById('loginBox').style.display='none';
   document.getElementById('homeBox').style.display='block';
 }
-
 function login(){
   const id = document.getElementById('memberId').value;
   if(id){
     loggedIn = true;
+    currentMember = id;
+    document.getElementById('memberName').innerText = id;
+    document.getElementById('memberBar').style.display='block';
     alert('เข้าสู่ระบบสำเร็จ สมาชิกเลขที่ ' + id);
     showHome();
   } else {
     alert('กรุณากรอกเลขสมาชิก');
   }
-}
-
-function order(){
-  if(!loggedIn){
-    alert('กรุณาเข้าสู่ระบบสมาชิกก่อน');
-    showLogin();
-  } else {
-    window.open('https://line.me/R/ti/p/@lge9983g','_blank');
+} else {
+    alert('กรุณากรอกเลขสมาชิก');
   }
 }
+function order(product){
+  if(!loggedIn){
+    alert('กรุณาเข้าสู่ระบบสมาชิกก่อนสั่งซื้อ');
+    showLogin();
+    return;
+  }
+  window.open('https://line.me/R/ti/p/@lge9983g','_blank');
+}
 </script>
-
+</footer>
 </body>
 </html>
