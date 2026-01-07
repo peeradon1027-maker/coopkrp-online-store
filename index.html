@@ -1,15 +1,86 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>สหกรณ์การเกษตร | ระบบสั่งซื้อสมาชิก</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {font-family: Arial, sans-serif; margin:0; background:#f4f6f5;}
+    header {background:#2e7d32; color:#fff; padding:1rem;}
+    nav a {color:#fff; margin-right:1rem; cursor:pointer; text-decoration:none;}
+    .container {padding:1.5rem;}
+    .card {background:#fff; border-radius:8px; padding:1rem; margin-bottom:1rem;}
+    .products {display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem;}
+    button {background:#2e7d32; color:#fff; border:none; padding:0.5rem 1rem; border-radius:4px; cursor:pointer;}
+    input {width:100%; padding:8px; margin-bottom:10px;}
+    #memberBar {margin-bottom:10px; display:none;}
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🌾 สหกรณ์การเกษตร</h1>
+
+  <div id="memberBar">
+    👤 สมาชิกเลขที่ <span id="memberName"></span>
+    <button onclick="logout()" style="margin-left:10px; background:#fff; color:#2e7d32;">
+      ออกจากระบบ
+    </button>
+  </div>
+
+  <nav>
+    <a onclick="showHome()">หน้าแรก</a>
+    <a onclick="showLogin()">เข้าสู่ระบบสมาชิก</a>
+  </nav>
+</header>
+
+<div class="container">
+
+  <!-- LOGIN -->
+  <div class="card" id="loginBox" style="display:none; max-width:400px; margin:auto;">
+    <h2>เข้าสู่ระบบสมาชิก</h2>
+    <input id="memberId" placeholder="เลขสมาชิก">
+    <button onclick="login()">เข้าสู่ระบบ</button>
+  </div>
+
+  <!-- HOME -->
+  <div id="homeBox">
+    <div class="card">
+      <h2>ยินดีต้อนรับสมาชิกสหกรณ์</h2>
+      <p>ระบบสั่งซื้อสินค้า สำหรับสมาชิกเท่านั้น</p>
+    </div>
+
+    <h2>🛒 สินค้า</h2>
+    <div class="products">
+      <div class="card">
+        <h3>ปุ๋ยอินทรีย์</h3>
+        <button onclick="order()">สั่งซื้อ</button>
+      </div>
+      <div class="card">
+        <h3>เมล็ดพันธุ์ข้าว</h3>
+        <button onclick="order()">สั่งซื้อ</button>
+      </div>
+      <div class="card">
+        <h3>ยาป้องกันศัตรูพืช</h3>
+        <button onclick="order()">สั่งซื้อ</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 <script>
 let loggedIn = false;
 let currentMember = '';
 
 function showLogin(){
-  document.getElementById('loginBox').style.display='block';
-  document.getElementById('homeBox').style.display='none';
+  document.getElementById('loginBox').style.display = 'block';
+  document.getElementById('homeBox').style.display = 'none';
 }
 
 function showHome(){
-  document.getElementById('loginBox').style.display='none';
-  document.getElementById('homeBox').style.display='block';
+  document.getElementById('loginBox').style.display = 'none';
+  document.getElementById('homeBox').style.display = 'block';
 }
 
 function login(){
@@ -18,7 +89,7 @@ function login(){
     loggedIn = true;
     currentMember = id;
     document.getElementById('memberName').innerText = id;
-    document.getElementById('memberBar').style.display='block';
+    document.getElementById('memberBar').style.display = 'block';
     alert('เข้าสู่ระบบสำเร็จ สมาชิกเลขที่ ' + id);
     showHome();
   } else {
@@ -29,12 +100,12 @@ function login(){
 function logout(){
   loggedIn = false;
   currentMember = '';
-  document.getElementById('memberBar').style.display='none';
+  document.getElementById('memberBar').style.display = 'none';
   alert('ออกจากระบบเรียบร้อย');
   showHome();
 }
 
-function order(product){
+function order(){
   if(!loggedIn){
     alert('กรุณาเข้าสู่ระบบสมาชิกก่อนสั่งซื้อ');
     showLogin();
@@ -43,3 +114,6 @@ function order(product){
   window.open('https://line.me/R/ti/p/@lge9983g','_blank');
 }
 </script>
+
+</body>
+</html>
